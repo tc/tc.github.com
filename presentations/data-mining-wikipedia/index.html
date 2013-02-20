@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Data Mining Wikipedia - Tommy Chheng</title>
+
+		<meta name="description" content="Data Mining Wikipedia Presentation: tips and tricks to help you avoid common problems.">
+		<meta name="author" content="Tommy Chheng">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+    <section>
+        <h1>Data Mining Wikipedia</h1>
+        <div>
+            <img src="http://i.imgur.com/dyjBbQs.png">
+            <br>
+        </div>
+        <p>
+        <a href="http://twitter.com/tommychheng">@tommychheng</a>
+    </p>
+    <p>
+    <a href="http://tommychheng.com">http://tommychheng.com</a>
+</p>
+<p>20 Feb 2013</p>
+</section>
+<section>
+    <section>
+        <h2>Qwiki</h2>
+<div style="text-align: center;">&nbsp; &nbsp;V1.0 Product - Transform Wikipedia Articles into &nbsp;</div>
+<div style="text-align: left;">
+    <span style="letter-spacing: -0.02em;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "Interactive Videos"</span>
+</div>
+<div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img style="width: 500px;" src="http://i.imgur.com/2mU1Iqb.png">
+</div>
+<div>
+    <br>
+</div>
+
+
+
+</section>
+        <section>
+            <h2>Qwiki on Bing Video</h2>
+<div>
+    <br>
+</div>
+<div>
+<iframe width="640" height="360" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" src="http://hub.video.msn.com/embed/79f2bc3f-3cb7-4813-840b-d0f87d4df44e/?vars=bGlua292ZXJyaWRlMj1odHRwJTNBJTJGJTJGd3d3LmJpbmcuY29tJTJGdmlkZW9zJTJGYnJvd3NlJTNGbWt0JTNEZW4tdXMlMjZ2aWQlM0QlN0IwJTdEJTI2ZnJvbSUzRHVzLWImc3luZGljYXRpb249dGFnJmZyPXNoYXJlZW1iZWQtc3luZGljYXRpb24mbGlua2JhY2s9aHR0cCUzQSUyRiUyRnd3dy5iaW5nLmNvbSUyRnZpZGVvcyUyRmJyb3dzZSZta3Q9ZW4tdXMmY29uZmlnTmFtZT1zeW5kaWNhdGlvbnBsYXllciZicmFuZD12NSU1RTU0NHgzMDYmY29uZmlnQ3NpZD1NU05WaWRlbw%3D%3D">
+  &lt;A href="http://www.bing.com/videos/browse?mkt=en-us&amp;vid=79f2bc3f-3cb7-4813-840b-d0f87d4df44e&amp;from=shareembed-syndication&amp;src=v5:embed:syndication:&amp;from=shareembed-syndication" target="_new" title="Bing Teams with Qwiki to Add Interactive Media to Search Results"&gt;Video: Bing Teams with Qwiki to Add Interactive Media to Search Results&lt;/A&gt;
+</iframe>
+    
+</div>
+            <div>
+                <br>
+            </div>
+
+</section>
+        </section>
+        <section>
+            <h2>What data do we need?</h2>
+            <div>
+                <br>
+            </div>
+            <div>
+                <ul>
+                    <li>Article Text</li>
+                    <li>Structured Data</li>
+                    <li>Media: Images/Videos</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>BEFORE CONTINUING...</h2>
+            <div>
+                <br>
+            </div>
+            <div>Always remember your goal!</div>
+            <div>
+                <br>
+            </div>
+            <div>It's very easy to get lost in the data</div>
+            <div>
+                <br>
+            </div>
+            <div>
+                <a href="http://www.aosabook.org/en/mediawiki.html">Wikipedia setup information is open</a>
+            </div>
+        </section>
+        <section>
+            <h2>Article Text</h2>
+<div>
+    <img src="http://i.imgur.com/Jl7OYXc.png" style="height: 300px; line-height: 1.2em; letter-spacing: -0.02em;">
+</div>
+<div>HTML format</div>
+<div>...</div>
+<div>
+    <br>
+</div>
+<div>
+            <a href="http://www.quora.com/Why-did-Wikipedia-stop-updating-the-HTML-data-dumps">not available in bulk since 2008</a>.</div>
+
+</section>
+            <section>
+                <section>
+                    <h2>WikiText</h2>
+                    <div>Articles are available in bulk XML format.</div>
+                    <div>Article text itself is in <a href="http://en.wikipedia.org/wiki/Wiki_markup">wikitext markup</a>:</div>
+                    <div>
+                        <div>
+                            <br>
+                        </div>
+                        <pre>The '''Boston Red Sox''' are a [[professional baseball|professional baseball team]] based in [[Boston]], [[Massachusetts]], and a member of [[Major League Baseball]]'s [[American League East|American League Eastern Division]]. Founded in {{by|1901}} as one of the American League's eight charter franchises,</pre>
+                    </div>
+                    <div>
+                        <br>
+                    </div>
+                    <div>AVOID parsing wikitext if you can...</div>
+                    <div>
+                        <br>
+                    </div>
+                    <div>If you just need the abstract text:</div>
+                    <div>
+                        <pre>&lt;doc&gt;<br>&lt;title&gt;Wikipedia: Peter Duchan&lt;/title&gt;<br>&lt;url&gt;http://en.wikipedia.org/wiki/Peter_Duchan&lt;/url&gt;<br>&lt;abstract&gt;Peter Duchan is an American script writer. He was a writer of the 2009 film Breaking Upwards.&lt;/abstract&gt;<br>
+                            <br>
+                        </pre>
+                    </div>
+                </section>
+                <section>
+                    <h2>Template Expansion is difficult</h2>
+                    <div>Templates can be custom functions to embed/eval content.</div>
+                    <div>
+                        <br>
+                    </div>
+                    <div>
+                        <pre>{{for|the card game|Contract bridge}}&nbsp;</pre>
+                        <div>
+                            <br>
+                        </div>
+                        <pre>{{#ifeq: yes | yes | Hooray...! | Darn...! }}</pre>
+                        <div>
+                            <br>
+                        </div>
+                        <div>
+                            <a href="http://en.wikipedia.org/wiki/Help:Template">http://en.wikipedia.org/wiki/Help:Template</a>
+                        </div>
+                        <div>
+                            <br>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>Wikitext Parsers</h2>
+                    <div>
+                        <br>
+                    </div>
+                    <div>mediawiki parser (PHP)</div>
+                    <div>
+                        <a href="https://code.google.com/p/gwtwiki/">bliki</a> parser (Java)</div>
+                        <div>
+                            <a href="http://www.mediawiki.org/wiki/Parsoid">Parsoid</a> (Javascript node.js/C++)</div>
+                            <div>and <a href="http://www.mediawiki.org/wiki/Alternative_parsers">many others...</a>
+                        </div>
+                        <div>
+                            <br>
+                        </div>
+                        <div>We used <a href="http://sweble.org/">sweble</a> (Java) with Scala.</div>
+                        <div>
+                            <br>
+                        </div>
+                        <div>Alternatively you can setup a wikipedia mirror&nbsp;</div>
+                        <div>and parse the HTML. (slow!)</div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Structured Data</h2>
+<div>
+<span style="letter-spacing: -0.02em;">Birth and death dates</span>
+<br>
+</div>
+<div>
+    <img style="width: 200px;" src="http://i.imgur.com/5TVgqNZ.png">
+    <br>
+</div>
+<div>Location coordinates</div>
+<div>
+    <img style="width: 200px;" src="http://i.imgur.com/INUEpZx.png">
+    <br>
+</div>
+<div>City/Country statistics (population)</div>
+<div>
+    <img style="width: 200px;" src="http://i.imgur.com/4nOPePd.png">
+    <br>
+</div>
+
+</section>
+                        <section>
+                            <h2>But Structured data is in&nbsp; &nbsp; <span style="font-family: 'League Gothic', Impact, sans-serif; font-size: 2.11em; letter-spacing: 0.02em; line-height: 0.9em;">WIKIText</span>
+</h2>
+<div>
+    <br>
+</div>
+<div>Can we use another data source?</div>
+<div>
+<img src="http://i.imgur.com/9ci6DLN.png" style="line-height: 1.2em; letter-spacing: -0.02em; width: 400px;">
+</div>
+<div>Freebase maybe?</div>
+
+</section>
+                            <section>
+                                <h2>Freebase</h2>
+                                <div>Easily accessible HTTP API<span style="letter-spacing: -0.02em;">- Yes</span>
+                            </div>
+                            <div>Formatted JSON - Yes</div>
+                            <div>Data Quality - No!</div>
+                            <div>
+                                <img src="http://i.imgur.com/DaCrQsx.png" style="line-height: 1.2em; letter-spacing: -0.02em;">
+                                <br>
+                            </div>
+                            <div>
+                                <br>
+                            </div>
+                        </section>
+                        <section>
+                            <h2>Argentina population (WikiPedia)</h2>
+                            <div>
+                                <img src="http://i.imgur.com/92ZLw9M.png">
+                                <br>
+                            </div>
+                        </section>
+                        <section>
+                            <h2>Argentina Population (Freebase)<img src="http://i.imgur.com/LtYkIhl.png" style="line-height: 1.2em; letter-spacing: -0.02em;">
+                            </h2>
+                        </section>
+                        <section>
+                            <h2>Argentina Population (google)<img src="http://i.imgur.com/WdCqbAu.png" style="line-height: 1.2em; letter-spacing: -0.02em;">
+                            </h2>
+                        </section>
+                    </section>
+                    <section>
+                        <h2>solution was</h2>
+                        <h2>&nbsp;wikitext parsing</h2>
+                        <div>We used <a href="http://mappings.dbpedia.org/index.php/Mapping_en">dbpedia mappings</a> to help determine the right key-value pairs.</div>
+                        <div>
+                            <pre>New York City<br>{{Infobox settlement<br>|population_total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 8,175,133</pre>
+                            <pre>
+                                <br>New York<br>{{Infobox U.S. state<br>|2000Pop &nbsp; &nbsp; &nbsp; &nbsp; = 19,465,197 (2011 est)&lt;ref name=PopEstUS/&gt;</pre>
+                                <pre>
+                                    <br>Germany<br>{{Infobox country<br>|population_estimate &nbsp; &nbsp; = 81,799,600&lt;ref name=population /&gt;<br>|population_estimate_year = 2010</pre>
+                                    <pre>
+                                        <br>Ontario<br>{{Infobox Province or &nbsp;territory of Canada<br>| PopulationYear &nbsp; &nbsp; &nbsp;= 2010<br>| Population &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= 13210667</pre>
+                                    </div>
+                                    <div>
+                                        <br>
+                                    </div>
+                                </section>
+                                <section>
+                                    <section>
+                                        <h2>Images</h2>
+<div>Images found on Wikipedia mostly originate</div>
+<div>&nbsp;from <a href="http://commons.wikimedia.org/wiki/Main_Page">Wikimedia Commons</a>
+</div>
+<div>
+    <img style="width: 400px;" src="http://i.imgur.com/J73Fgo2.png">
+    <br>
+</div>
+<div>You will need to download the data dump for the image caption/metadata.</div>
+<div>
+    <br>
+</div>
+                                        <div>
+                                            <br>
+                                        </div>
+
+</section>
+                                        <section>
+                                            <h2>Beware Large Images</h2>
+<div>
+    <img style="width: 500px;" src="http://i.imgur.com/gLIlmVy.png">
+    <br>
+</div>
+                                            <div>30,000 x 27,904 pixels; file size 225 MB</div>
+</section>
+                                        </section>
+                                        <section>
+                                            <h2>Parallel Processing</h2>
+                                            <div>Our Sweble parsing was easily integrated into a Hadoop job.</div>
+                                            <div>
+                                                <img src="http://i.imgur.com/HoSP574.jpg">
+                                                <br>
+                                            </div>
+                                            <div>Processed using Amazon EMR with spot instances.</div>
+                                            <div>
+                                                <br>
+                                            </div>
+                                            <div>Multiple passes through the dataset.&nbsp;</div>
+                                        </section>
+                                        <section>
+                                            <h2>Questions mining Wikipedia?</h2>
+                                            <div>
+                                                <br>
+                                            </div>
+                                            <div>
+                                                <span style="letter-spacing: -1px; line-height: 91.140625px;">contact info</span>
+                                            </div>
+                                            <div>
+                                                <span style="letter-spacing: -1px; line-height: 91.140625px;">
+                                                    <a href="http://twitter.com/tommychheng">@tommychheng</a>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span style="letter-spacing: -1px; line-height: 91.140625px;">
+                                                    <a href="http://tommychheng.com">http://tommychheng.com</a>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <br>
+                                            </div>
+                                        </section>
+      </div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
